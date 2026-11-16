@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maria Tufail — Web Developer, SEO & Blogger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1ea; --paper:#fffaf3; --ink:#1c1916; --muted:#6b635b; --line:#e4dacb;
+  --lime:#c4f23a; --lime-d:#9fcc14; --olive:#4d5a3a; --black:#141414;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.1;letter-spacing:-.01em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--ink);cursor:pointer;transition:transform .2s,background .2s;font-family:inherit}
+.btn:hover{transform:translateY(-2px)}
+.btn-dark{background:var(--black);color:#fff;border-color:var(--black)}
+.btn-lime{background:var(--lime);border-color:var(--black);color:var(--black)}
+.btn-ghost{background:transparent;color:var(--ink)}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:20;background:rgba(246,241,234,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{font-family:Fraunces,serif;font-weight:700;font-size:22px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:30px;height:30px;border-radius:9px;background:var(--black);color:var(--lime);display:grid;place-items:center;font-style:normal;font-size:16px}
+.links{display:flex;gap:28px;font-size:14px;font-weight:500}
+.links a{text-decoration:none;color:var(--muted)}
+.links a:hover{color:var(--ink)}
+@media(max-width:820px){.links{display:none}}
+
+/* HERO */
+.hero{position:relative;min-height:calc(100vh - 66px);display:flex;flex-direction:column;justify-content:center;padding:40px 0 28px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1.25fr 1fr;align-items:center;gap:24px}
+.intro,.context{transition:transform .5s,opacity .5s}
+.intro h1{font-size:clamp(38px,4.6vw,62px);margin:10px 0 14px}
+.intro h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--lime) 62%)}
+.intro p{color:var(--muted);max-width:330px;margin-bottom:22px}
+.intro .cta{display:flex;gap:10px;flex-wrap:wrap}
+.hero[data-zone="left"] .intro{transform:translateX(6px)}
+.hero[data-zone="right"] .context{transform:translateX(-6px)}
+.hero[data-zone="left"] .context,.hero[data-zone="right"] .intro{opacity:.45}
+
+.stage{position:relative;display:flex;justify-content:center}
+.bubble{position:absolute;top:2%;left:50%;transform:translateX(-50%);background:var(--black);color:#fff;padding:11px 18px;border-radius:18px;font-size:14px;font-weight:500;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.15);transition:opacity .25s,transform .25s;z-index:2}
+.bubble::after{content:"";position:absolute;bottom:-7px;left:50%;margin-left:-7px;border:7px solid transparent;border-top-color:var(--black);border-bottom:0}
+.bubble.swap{opacity:0;transform:translate(-50%,6px)}
+
+.context{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:0 20px 50px -30px rgba(0,0,0,.25)}
+.context .k{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lime-d)}
+.context h3{font-size:26px;margin:8px 0 10px;min-height:58px}
+.context p{color:var(--muted);font-size:14.5px;min-height:70px}
+.context a{display:inline-block;margin-top:12px;font-weight:600;font-size:14px}
+.zones{display:flex;gap:6px;margin-top:16px}
+.zones span{flex:1;height:5px;border-radius:5px;background:var(--line);transition:background .3s}
+.hero[data-zone="left"] .zones span:nth-child(1),.hero[data-zone="center"] .zones span:nth-child(2),.hero[data-zone="right"] .zones span:nth-child(3){background:var(--black)}
+
+.hint{margin-top:30px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted);gap:12px;flex-wrap:wrap}
+.hint b{color:var(--ink)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--lime-d);margin-right:8px;box-shadow:0 0 0 4px rgba(196,242,58,.35)}
+
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .intro p{margin-left:auto;margin-right:auto}
+  .intro .cta{justify-content:center}
+  .stage{order:-1}
+  .context{max-width:440px;margin:0 auto;text-align:left}
+  .hero[data-zone] .intro,.hero[data-zone] .context{opacity:1;transform:none}
+}
+
+/* Character */
+.char{position:relative;width:100%;max-width:470px}
+#me{width:100%;height:auto;overflow:visible;display:block}
+#me .g{transform-box:view-box;transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .35s}
+#head,#headFront{transform-origin:200px 240px}
+#face{transform-origin:200px 175px}
+#me.s-idle #head,#me.s-idle #headFront{transform:translate(0,6px) rotate(-2deg)}
+#me.s-left #head,#me.s-left #headFront{transform:translate(-9px,0) rotate(-8deg)}
+#me.s-right #head,#me.s-right #headFront{transform:translate(9px,0) rotate(8deg)}
+#me.s-center #head,#me.s-center #headFront{transform:translate(0,-3px) rotate(0)}
+#me.s-idle #face{transform:translate(0,4px)}
+#me.s-left #face{transform:translate(-8px,0)}
+#me.s-right #face{transform:translate(8px,0)}
+#eyes{transform-box:view-box;transform-origin:200px 175px;transition:transform .12s}
+#me.s-idle #eyes{transform:scaleY(.62)}
+#me.blink #eyes{transform:scaleY(.06)}
+.iris{transition:transform .15s}
+.m{opacity:0;transition:opacity .25s}
+#me.s-idle .m-idle,#me.s-left .m-left,#me.s-center .m-center,#me.s-right .m-right{opacity:1}
+.blush{opacity:.6;transition:opacity .3s}
+#me.s-center .blush,#me.s-left .blush{opacity:1}
+#armWave,#armPoint{opacity:0}
+#me.s-left #armWave{opacity:1}
+#me.s-left #armL{opacity:0}
+#me.s-right #armPoint{opacity:1}
+#me.s-right #armR{opacity:0}
+#armWave{transform-origin:134px 276px;animation:wave 1.1s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-14deg)}}
+#me.s-idle #armL{animation:type .32s ease-in-out infinite}
+#me.s-idle #armR{animation:type .32s ease-in-out infinite .16s}
+@keyframes type{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+.sway{transform-box:view-box;transform-origin:160px 140px;animation:sway 4s ease-in-out infinite}
+.sway.s2{transform-origin:240px 140px;animation-delay:-2s}
+@keyframes sway{0%,100%{transform:rotate(0)}50%{transform:rotate(1.6deg)}}
+.steam{animation:steam 2.4s ease-in-out infinite;opacity:0}
+.steam.s2{animation-delay:1.2s}
+@keyframes steam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-14px)}}
+.glow{transition:opacity .4s}
+#me:not(.s-idle) .glow{opacity:.25}
+.chip{position:absolute;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;white-space:nowrap;box-shadow:0 10px 24px -12px rgba(0,0,0,.3);animation:float 4s ease-in-out infinite;transition:background .3s,color .3s,scale .3s}
+.chip.c1{left:-4%;top:40%}
+.chip.c2{right:-6%;top:26%;animation-delay:1.2s}
+.chip.c3{right:-2%;top:52%;animation-delay:2.2s}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.hero[data-zone="left"] .c1,.hero[data-zone="right"] .c2,.hero[data-zone="right"] .c3,.hero[data-zone="center"] .chip{background:var(--black);color:var(--lime);scale:1.06}
+@media(max-width:960px){.char{max-width:350px}}
+@media(prefers-reduced-motion:reduce){#armWave,#me.s-idle #armL,#me.s-idle #armR,.steam,.sway,.chip{animation:none}#me .g{transition:none}}
+
+/* SECTIONS */
+.results{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
+.res{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.res .img{background:#eef2f8;padding:16px}
+.res img{width:100%;height:auto;display:block;border-radius:12px;box-shadow:0 10px 30px -18px rgba(0,0,0,.35)}
+.res .meta{padding:20px 22px}
+.res .big{font-family:Fraunces,serif;font-size:30px;font-weight:700;line-height:1.1}
+.res .big span{background:linear-gradient(transparent 60%,var(--lime) 60%)}
+.res p{font-size:14px;color:var(--muted);margin-top:6px}
+.kpis{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.kpis b{font-size:12.5px;font-weight:600;background:var(--black);color:var(--lime);padding:5px 11px;border-radius:999px}
+.res-h{display:flex;align-items:center;gap:12px;margin-top:56px}
+.res-h h3{font-size:28px}
+.res-h .tag{background:var(--lime);color:var(--black);padding:4px 10px;border-radius:999px}
+@media(max-width:900px){.results{grid-template-columns:1fr}}
+
+section.block{padding:96px 0;border-top:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+.head h2{font-size:clamp(32px,4vw,48px);margin-top:8px;max-width:620px}
+.head p{color:var(--muted);max-width:380px}
+
+.about{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start}
+.about .lead{font-family:Fraunces,serif;font-size:clamp(22px,2.4vw,30px);line-height:1.35}
+.about .lead mark{background:var(--lime);padding:0 4px;border-radius:4px}
+.about .more{color:var(--muted);margin-top:18px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.stat b{display:block;font-family:Fraunces,serif;font-size:44px;line-height:1}
+.stat span{font-size:14px;color:var(--muted)}
+.stat.dark{background:var(--black);color:#fff;border-color:var(--black)}
+.stat.dark b{color:var(--lime)}
+.stat.dark span{color:#bdbdbd}
+@media(max-width:860px){.about{grid-template-columns:1fr}}
+
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.skill{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:transform .25s,box-shadow .25s}
+.skill:hover{transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(0,0,0,.3)}
+.skill .ic{width:46px;height:46px;border-radius:13px;background:var(--black);color:var(--lime);display:grid;place-items:center;font-size:22px;margin-bottom:18px}
+.skill h3{font-size:22px;margin-bottom:4px}
+.skill .yrs{font-size:12.5px;font-weight:600;color:var(--lime-d);margin-bottom:12px}
+.skill ul{list-style:none;font-size:14px;color:var(--muted)}
+.skill li{padding:5px 0;border-top:1px dashed var(--line)}
+.bar{height:6px;border-radius:6px;background:var(--line);margin-top:16px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--black);border-radius:6px}
+@media(max-width:1000px){.skills{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.skills{grid-template-columns:1fr}}
+
+.tabs{display:inline-flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px;gap:4px;margin-bottom:30px;flex-wrap:wrap}
+.tabs button{border:0;background:none;font:600 14px Inter,sans-serif;padding:10px 20px;border-radius:999px;cursor:pointer;color:var(--muted)}
+.tabs button.on{background:var(--black);color:#fff}
+.plans{display:none;grid-template-columns:repeat(3,1fr);gap:18px}
+.plans.on{display:grid}
+.plan{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:30px;display:flex;flex-direction:column}
+.plan.pop{background:var(--black);color:#fff;border-color:var(--black)}
+.plan .badge{position:absolute;top:-12px;right:22px;background:var(--lime);color:var(--black);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px}
+.plan h3{font-size:24px}
+.plan .for{font-size:13.5px;color:var(--muted);margin:4px 0 18px}
+.plan.pop .for{color:#a9a9a9}
+.price{font-family:Fraunces,serif;font-size:38px;font-weight:700;line-height:1}
+.price small{font-family:Inter,sans-serif;font-size:14px;font-weight:500;color:var(--muted)}
+.plan.pop .price small{color:#a9a9a9}
+.plan ul{list-style:none;margin:22px 0 26px;font-size:14.5px;flex:1}
+.plan li{padding:7px 0 7px 26px;position:relative;border-top:1px solid var(--line)}
+.plan.pop li{border-color:#2a2a2a}
+.plan li::before{content:"✓";position:absolute;left:0;top:7px;font-weight:700;color:var(--lime-d)}
+.plan.pop li::before{color:var(--lime)}
+.plan .btn{justify-content:center}
+.plan.pop .btn{background:var(--lime);color:var(--black);border-color:var(--lime)}
+.note{margin-top:22px;font-size:13.5px;color:var(--muted)}
+@media(max-width:900px){.plans.on{grid-template-columns:1fr}}
+
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.wcard{border-radius:22px;overflow:hidden;background:var(--paper);border:1px solid var(--line)}
+.wcard .shot{height:240px;overflow:hidden;width:100%;display:grid;place-items:center;position:relative}
+.wcard .shot .mock{width:76%;max-width:300px;background:#fff;border-radius:10px;box-shadow:0 14px 34px -14px rgba(0,0,0,.35);overflow:hidden}
+.mock .tb{height:16px;background:#ececec;display:flex;gap:4px;align-items:center;padding-left:7px}
+.mock .tb i{width:6px;height:6px;border-radius:50%;background:#c9c9c9}
+.mock .bd{padding:12px;display:grid;gap:7px}
+.mock .bd i{display:block;height:8px;border-radius:4px;background:#ececec}
+.wcard .meta{padding:20px 22px}
+.wcard h3{font-size:20px}
+.wcard p{font-size:14px;color:var(--muted)}
+@media(max-width:900px){.work{grid-template-columns:1fr}}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.step{padding:24px;border-left:2px solid var(--black)}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:Fraunces,serif;font-size:15px;font-weight:700;color:var(--lime-d)}
+.step h3{font-size:21px;margin:6px 0}
+.step p{font-size:14px;color:var(--muted)}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+
+.contact{background:var(--black);color:#fff;border-radius:30px;padding:clamp(34px,6vw,70px);display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.contact h2{font-size:clamp(34px,4.4vw,56px)}
+.contact h2 span{color:var(--lime)}
+.contact p{color:#bdbdbd;margin-top:14px}
+.mailbox{background:#1f1f1f;border:1px solid #2e2e2e;border-radius:20px;padding:24px}
+.mailbox .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8d8d8d}
+.mailbox .em{font-size:clamp(17px,2vw,21px);font-weight:600;margin:6px 0 18px;word-break:break-all}
+.mailbox .row{display:flex;gap:10px;flex-wrap:wrap}
+.mailbox .btn{border-color:#3a3a3a;color:#fff}
+.mailbox .btn-lime{color:var(--black);border-color:var(--lime)}
+.mailbox ul{list-style:none;margin-top:20px;font-size:14px;color:#bdbdbd}
+.mailbox li{padding:6px 0;border-top:1px solid #2e2e2e}
+@media(max-width:860px){.contact{grid-template-columns:1fr}}
+footer{padding:34px 0 44px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo"><i>M</i>Maria Tufail</a>
+    <div class="links">
+      <a href="#about">About</a><a href="#skills">Skills</a><a href="#packages">Packages</a><a href="#work">Work</a><a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn btn-dark" style="padding:10px 18px;font-size:14px">Free Audit</a>
+  </div>
+</nav>
+
+<header class="hero" id="top" data-zone="idle">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="intro">
+        <span class="tag">Web Developer · SEO · Blogger</span>
+        <h1>Hi, I'm Maria.<br>I build websites that <em>rank &amp; sell.</em></h1>
+        <p>5+ years building websites, 2+ years growing them on Google with SEO and content that people actually read.</p>
+        <div class="cta">
+          <a href="#packages" class="btn btn-dark">See packages</a>
+          <a href="#contact" class="btn btn-ghost">Get free audit</a>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="bubble" id="bubble">Shh… coding something cool 💻</div>
+        <div class="char">
+        <svg id="me" class="s-idle" viewBox="0 0 400 400" role="img" aria-label="Illustrated Maria working on her laptop, reacting to your cursor">
+          <defs>
+            <radialGradient id="gFace" cx="50%" cy="38%" r="65%"><stop offset="0" stop-color="#ffe3cf"/><stop offset=".7" stop-color="#f9cfb3"/><stop offset="1" stop-color="#efb796"/></radialGradient>
+            <linearGradient id="gHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#553a2f"/><stop offset="1" stop-color="#33211a"/></linearGradient>
+            <linearGradient id="gSweat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3657"/><stop offset="1" stop-color="#161d33"/></linearGradient>
+            <linearGradient id="gIris" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e120c"/><stop offset=".55" stop-color="#4a2c1d"/><stop offset="1" stop-color="#a06a45"/></linearGradient>
+            <linearGradient id="gLid" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4e4df"/><stop offset="1" stop-color="#b4b4ad"/></linearGradient>
+            <linearGradient id="gShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2236"/><stop offset="1" stop-color="#3a4870"/></linearGradient>
+            <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6"/></filter>
+            <clipPath id="cL"><path d="M-14 1 Q-10 -13 1 -13 Q12 -12 15 -2 Q12 11 1 12 Q-10 11 -14 1Z"/></clipPath>
+            <clipPath id="cR"><path d="M14 1 Q10 -13 -1 -13 Q-12 -12 -15 -2 Q-12 11 -1 12 Q10 11 14 1Z"/></clipPath>
+          </defs>
+
+          <circle cx="200" cy="205" r="152" fill="#c4f23a" opacity=".28"/>
+          <circle cx="200" cy="205" r="112" fill="#c4f23a" opacity=".38"/>
+
+          <!-- plant -->
+          <g>
+            <path d="M52 302 C40 262 46 238 62 224 C64 252 60 278 58 302Z" fill="#6f8a4a"/>
+            <path d="M62 302 C70 264 86 246 104 240 C96 268 80 288 68 302Z" fill="#4d6a33"/>
+            <path d="M56 302 C48 278 30 264 18 262 C24 284 38 298 52 304Z" fill="#87a35c"/>
+            <path d="M38 302 h44 l-6 46 h-32z" fill="#d9a67a"/>
+          </g>
+
+          <!-- back hair -->
+          <g id="head" class="g">
+            <path d="M200 86 C150 86 128 118 132 168 C135 214 126 256 134 304 Q200 318 266 304 C274 256 265 214 268 168 C272 118 250 86 200 86Z" fill="#24150f"/>
+          </g>
+
+          <!-- neck + body -->
+          <path d="M190 210 L189 250 Q200 257 211 250 L210 210 Z" fill="#f3c4a5"/>
+          <ellipse cx="200" cy="219" rx="12" ry="8" fill="#e2a585" opacity=".8"/>
+          <path d="M104 354 Q106 272 150 258 Q172 250 186 247 Q200 260 214 247 Q228 250 250 258 Q294 272 296 354 Z" fill="url(#gSweat)"/>
+          <path d="M182 247 Q200 265 218 247" stroke="#34436a" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M150 300 q10 14 6 40 M250 300 q-10 14 -6 40" stroke="#33416a" stroke-width="2" fill="none" opacity=".7"/>
+          <path d="M187 251 Q200 270 213 251" stroke="#e2cf96" stroke-width="1.1" fill="none"/>
+          <circle cx="200" cy="263" r="2.8" fill="#f1e2b0"/>
+
+          <!-- typing arms -->
+          <g id="armL" class="g"><path d="M140 276 Q150 310 172 326" stroke="#1f2945" stroke-width="27" fill="none" stroke-linecap="round"/></g>
+          <g id="armR" class="g"><path d="M260 276 Q250 310 228 326" stroke="#1f2945" stroke-width="27" fill="none" stroke-linecap="round"/></g>
+
+          <!-- wave arm -->
+          <g id="armWave" class="g">
+            <path d="M136 278 Q110 254 106 218" stroke="#1f2945" stroke-width="27" fill="none" stroke-linecap="round"/>
+            <path d="M96 216 L117 214" stroke="#f4f1ea" stroke-width="9" stroke-linecap="round"/>
+            <path d="M94 204 Q92 186 98 176 M101 202 Q101 180 105 172 M108 203 Q110 182 114 176 M114 206 Q120 194 124 190" stroke="#f7cdb0" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+            <ellipse cx="106" cy="203" rx="12" ry="10" fill="#f7cdb0"/>
+          </g>
+          <!-- point arm -->
+          <g id="armPoint" class="g">
+            <path d="M264 278 Q298 270 322 248" stroke="#1f2945" stroke-width="27" fill="none" stroke-linecap="round"/>
+            <path d="M322 236 L332 254" stroke="#f4f1ea" stroke-width="9" stroke-linecap="round"/>
+            <ellipse cx="338" cy="240" rx="11" ry="9.5" fill="#f7cdb0"/>
+            <path d="M344 234 L362 222" stroke="#f7cdb0" stroke-width="6" stroke-linecap="round"/>
+          </g>
+
+          <!-- head front -->
+          <g id="headFront" class="g">
+            <ellipse cx="157" cy="178" rx="7" ry="10" fill="#f0bd9c"/>
+            <ellipse cx="243" cy="178" rx="7" ry="10" fill="#f0bd9c"/>
+            <path d="M157 152 C154 112 178 100 200 100 C222 100 246 112 243 152 C244 190 228 214 206 226 Q200 229 194 226 C172 214 156 190 157 152Z" fill="url(#gFace)"/>
+
+            <g id="face" class="g">
+              <g class="blush">
+                <ellipse cx="175" cy="196" rx="11" ry="5.5" fill="#ff8a8a" filter="url(#soft)"/>
+                <ellipse cx="225" cy="196" rx="11" ry="5.5" fill="#ff8a8a" filter="url(#soft)"/>
+                <path d="M169 197 l3 -4 M174 197 l3 -4 M179 197 l3 -4 M219 197 l3 -4 M224 197 l3 -4 M229 197 l3 -4" stroke="#f27a7a" stroke-width="1.1" stroke-linecap="round"/>
+              </g>
+              <g id="eyes">
+                <g transform="translate(179 175)">
+                  
+                  <path d="M-14 1 Q-10 -13 1 -13 Q12 -12 15 -2 Q12 11 1 12 Q-10 11 -14 1Z" fill="#fff"/>
+                  <g clip-path="url(#cL)"><g class="iris">
+                    <ellipse cx="1" cy="0" rx="8.6" ry="10.6" fill="url(#gIris)"/>
+                    <ellipse cx="1" cy="1" rx="4.2" ry="5.6" fill="#140b07"/>
+                    <circle cx="4.4" cy="-4.2" r="3.3" fill="#fff"/>
+                    <circle cx="-2.4" cy="5" r="1.6" fill="#fff" opacity=".85"/>
+                  </g></g>
+                  <path d="M-16 3 Q-13 -14 1 -14.5 Q10 -14.5 13 -8" stroke="#23130d" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+                  <path d="M-15 -3 L-21 -7 M-16 1 L-22 -1" stroke="#23130d" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M-10 9 Q1 14 11 8" stroke="#9b6450" stroke-width="1.1" fill="none" opacity=".7"/>
+                </g>
+                <g transform="translate(221 175)">
+                  
+                  <path d="M14 1 Q10 -13 -1 -13 Q-12 -12 -15 -2 Q-12 11 -1 12 Q10 11 14 1Z" fill="#fff"/>
+                  <g clip-path="url(#cR)"><g class="iris">
+                    <ellipse cx="-1" cy="0" rx="8.6" ry="10.6" fill="url(#gIris)"/>
+                    <ellipse cx="-1" cy="1" rx="4.2" ry="5.6" fill="#140b07"/>
+                    <circle cx="2.4" cy="-4.2" r="3.3" fill="#fff"/>
+                    <circle cx="-4.4" cy="5" r="1.6" fill="#fff" opacity=".85"/>
+                  </g></g>
+                  <path d="M16 3 Q13 -14 -1 -14.5 Q-10 -14.5 -13 -8" stroke="#23130d" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+                  <path d="M15 -3 L21 -7 M16 1 L22 -1" stroke="#23130d" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M10 9 Q-1 14 -11 8" stroke="#9b6450" stroke-width="1.1" fill="none" opacity=".7"/>
+                </g>
+              </g>
+              <path d="M200 191 l1.6 3.4" stroke="#d6957c" stroke-width="1.7" stroke-linecap="round"/>
+              <path class="m m-idle" d="M194 206 Q200 209.5 206 206" stroke="#b44c46" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <g class="m m-center"><path d="M190.5 203.5 Q200 218 209.5 203.5 Z" fill="#8c2c2e"/><ellipse cx="200" cy="211" rx="4.6" ry="2.6" fill="#ee8282"/></g>
+              <ellipse class="m m-left" cx="200" cy="207.5" rx="3.6" ry="4.4" fill="#8c2c2e"/>
+              <path class="m m-right" d="M193 205 Q196.5 209.5 200 206 Q203.5 209.5 207 205" stroke="#b44c46" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+
+            <!-- bangs -->
+            <path d="M200 90 C160 90 144 120 150 180 Q154 156 166 148 Q182 144 190 132 Q197 118 200 102 Q203 118 210 132 Q218 144 234 148 Q246 156 250 180 C256 120 240 90 200 90Z" fill="url(#gHair)"/>
+            <path d="M199 104 Q188 128 176 156 Q192 142 203 116Z" fill="url(#gHair)"/>
+            <path d="M201 104 Q213 130 224 154 Q208 142 197 116Z" fill="url(#gHair)"/>
+            <path d="M196 106 Q182 126 172 150 Q186 134 198 118Z" fill="#3d2820"/>
+            <path d="M168 108 Q184 98 196 98 M204 98 Q218 98 232 108" stroke="#7a5446" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="12 7" opacity=".7"/>
+            <path d="M170 145 Q179 141 189 143" stroke="#3a2620" stroke-width="2" fill="none" stroke-linecap="round" opacity=".9"/>
+            <path d="M211 143 Q221 141 230 145" stroke="#3a2620" stroke-width="2" fill="none" stroke-linecap="round" opacity=".9"/>
+            <!-- side locks -->
+            <path class="sway" d="M158 136 C146 180 152 246 136 306 C150 298 160 264 163 232 C166 200 162 168 168 148 Z" fill="url(#gHair)"/>
+            <path class="sway s2" d="M242 136 C254 180 248 246 264 306 C250 298 240 264 237 232 C234 200 238 168 232 148 Z" fill="url(#gHair)"/>
+            <path class="sway" d="M156 170 Q154 230 144 290 M162 200 Q160 250 152 296" stroke="#1d110c" stroke-width="1.2" fill="none" opacity=".6"/>
+            <path class="sway s2" d="M244 170 Q246 230 256 290 M238 200 Q240 250 248 296" stroke="#1d110c" stroke-width="1.2" fill="none" opacity=".6"/>
+            <!-- earbuds + wires -->
+            <path d="M164 214 Q172 250 196 286 M236 214 Q228 250 196 286 L196 330" stroke="#f3f3f0" stroke-width="1.5" fill="none"/>
+            
+            
+            <!-- sunglasses on head -->
+            <g>
+              <path d="M158 100 Q162 86 178 87 Q194 88 194 100 Q192 110 178 110 Q160 110 158 100Z" fill="url(#gShade)"/>
+              <path d="M206 100 Q206 88 222 87 Q238 86 242 100 Q240 110 222 110 Q208 110 206 100Z" fill="url(#gShade)"/>
+              <path d="M194 97 Q200 93 206 97" stroke="#1a2236" stroke-width="3" fill="none"/>
+              <path d="M164 95 l10 -4 M212 95 l10 -4" stroke="#8fa0c8" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+            </g>
+          </g>
+
+          <!-- desk -->
+          <rect x="0" y="348" width="400" height="52" rx="4" fill="#e2d4bf"/>
+          <rect x="0" y="348" width="400" height="5" fill="#d3c2a8"/>
+          <!-- laptop -->
+          
+          <rect x="118" y="262" width="164" height="86" rx="9" fill="url(#gLid)"/>
+          <rect x="118" y="262" width="164" height="5" rx="2.5" fill="#f2f2ee"/>
+          <path d="M126 340 L170 268 L196 268 L152 340Z" fill="#fff" opacity=".18"/>
+          <path d="M162 340 L206 268 L216 268 L172 340Z" fill="#fff" opacity=".12"/>
+          <rect x="98" y="344" width="204" height="9" rx="4.5" fill="#9d9d97"/>
+          <!-- mug -->
+          <path class="steam" d="M332 302 q-6 -10 0 -18 q6 -8 0 -16" stroke="#9b8f80" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path class="steam s2" d="M344 304 q-6 -10 0 -18 q6 -8 0 -16" stroke="#9b8f80" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <rect x="322" y="308" width="34" height="40" rx="7" fill="#141414"/>
+          <path d="M356 318 q14 0 14 12 q0 12 -14 12" stroke="#141414" stroke-width="5" fill="none"/>
+          <rect x="328" y="320" width="22" height="4" rx="2" fill="#c4f23a"/>
+        </svg>
+      </div>
+      </div>
+
+      <aside class="context" aria-live="polite">
+        <div class="k" id="ctxK">Psst…</div>
+        <h3 id="ctxH">Move your cursor around.</h3>
+        <p id="ctxP">Go left to meet me, stay in the middle to say hi, or head right to see my packages and work.</p>
+        <a href="#packages" id="ctxA">Explore packages →</a>
+        <div class="zones"><span></span><span></span><span></span></div>
+      </aside>
+    </div>
+
+    <div class="hint">
+      <div><span class="dot"></span><b>Available for new projects</b> · Pakistan &amp; international clients</div>
+      <div>← left · center · right → &nbsp;|&nbsp; scroll to explore ↓</div>
+    </div>
+  </div>
+</header>
+
+<section class="block" id="about">
+  <div class="wrap about">
+    <div>
+      <span class="tag">About me</span>
+      <p class="lead" style="margin-top:14px">I'm Maria Tufail, a <mark>web developer</mark> who also knows how to get websites found. I build fast, clean sites, then grow them with <mark>SEO</mark> and <mark>blogging</mark>.</p>
+      <p class="more">Most businesses get a beautiful website that nobody visits. I fix that by combining three skills in one place: development, search engine optimisation and content writing. You get a site that is built right from day one and keeps bringing in traffic and customers.</p>
+      <p class="more"><b>Education:</b> FSc (Intermediate)</p>
+    </div>
+    <div class="stats">
+      <div class="stat dark"><b>5+</b><span>Years in web development</span></div>
+      <div class="stat"><b>2+</b><span>Years in SEO</span></div>
+      <div class="stat"><b>2+</b><span>Years in blogging</span></div>
+      <div class="stat"><b>3‑in‑1</b><span>Build · Rank · Write</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="skills">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="tag">Skills</span><h2>Everything your website needs, from code to content.</h2></div>
+      <p>One person who understands how design, speed, SEO and content work together.</p>
+    </div>
+    <div class="skills">
+      <div class="skill">
+        <div class="ic">⌘</div><h3>Web Development</h3><div class="yrs">5+ years</div>
+        <ul><li>Business &amp; portfolio websites</li><li>WordPress &amp; custom HTML/CSS/JS</li><li>Responsive, mobile‑first design</li><li>Speed &amp; Core Web Vitals</li><li>Landing pages that convert</li></ul>
+        <div class="bar"><i style="width:94%"></i></div>
+      </div>
+      <div class="skill">
+        <div class="ic">↗</div><h3>SEO</h3><div class="yrs">2+ years</div>
+        <ul><li>Keyword research</li><li>On‑page &amp; technical SEO</li><li>Local SEO &amp; Google Business</li><li>Link building</li><li>Search Console &amp; Analytics</li></ul>
+        <div class="bar"><i style="width:82%"></i></div>
+      </div>
+      <div class="skill">
+        <div class="ic">✎</div><h3>Blogging</h3><div class="yrs">2+ years</div>
+        <ul><li>SEO blog writing</li><li>Content strategy &amp; calendars</li><li>Blog setup &amp; structure</li><li>Internal linking</li><li>Monetisation guidance</li></ul>
+        <div class="bar"><i style="width:80%"></i></div>
+      </div>
+      <div class="skill">
+        <div class="ic">⛁</div><h3>Shopify &amp; E‑commerce</h3><div class="yrs">Stores that sell</div>
+        <ul><li>Shopify &amp; WooCommerce setup</li><li>Product page SEO</li><li>Payments, COD &amp; shipping</li><li>Store speed optimisation</li><li>Conversion improvements</li></ul>
+        <div class="bar"><i style="width:78%"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="packages">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="tag">Packages</span><h2>Simple packages. Clear pricing.</h2></div>
+      <p>Pick a package or message me for a custom quote that fits your business.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="on" data-t="seo">SEO</button>
+      <button data-t="web">Website</button>
+      <button data-t="blog">Blogging</button>
+    </div>
+
+    <div class="plans on" id="p-seo">
+      <div class="plan">
+        <h3>Starter SEO</h3><div class="for">For new or small local businesses</div>
+        <div class="price">PKR 15,000 <small>/ month</small></div>
+        <ul><li>Complete website SEO audit</li><li>Research for 10 keywords</li><li>On‑page SEO for 5 pages</li><li>Google Search Console setup</li><li>Google Business Profile setup</li><li>Monthly progress report</li></ul>
+        <a href="#contact" class="btn btn-ghost">Choose Starter</a>
+      </div>
+      <div class="plan pop">
+        <span class="badge">Most popular</span>
+        <h3>Growth SEO</h3><div class="for">For businesses ready to grow traffic</div>
+        <div class="price">PKR 30,000 <small>/ month</small></div>
+        <ul><li>Everything in Starter</li><li>Research for 25 keywords</li><li>On‑page SEO for 15 pages</li><li>Technical SEO: speed, indexing, schema</li><li>2 SEO blog posts per month</li><li>10 quality backlinks</li><li>Competitor analysis</li><li>Report every two weeks</li></ul>
+        <a href="#contact" class="btn">Choose Growth</a>
+      </div>
+      <div class="plan">
+        <h3>Pro SEO</h3><div class="for">For e‑commerce &amp; competitive niches</div>
+        <div class="price">PKR 55,000 <small>/ month</small></div>
+        <ul><li>Everything in Growth</li><li>Research for 50 keywords</li><li>On‑page SEO for the whole site</li><li>4 SEO blog posts per month</li><li>25 quality backlinks</li><li>Local + Shopify/e‑commerce SEO</li><li>Weekly report + monthly strategy call</li></ul>
+        <a href="#contact" class="btn btn-ghost">Choose Pro</a>
+      </div>
+    </div>
+
+    <div class="plans" id="p-web">
+      <div class="plan">
+        <h3>Starter Website</h3><div class="for">Portfolio or small business site</div>
+        <div class="price">PKR 25,000 <small>one‑time</small></div>
+        <ul><li>Up to 5 pages</li><li>Mobile‑responsive design</li><li>Contact form + WhatsApp button</li><li>Basic SEO setup</li><li>Delivery in 7 days</li></ul>
+        <a href="#contact" class="btn btn-ghost">Choose Starter</a>
+      </div>
+      <div class="plan pop">
+        <span class="badge">Most popular</span>
+        <h3>Business Website</h3><div class="for">Custom site built to rank from day one</div>
+        <div class="price">PKR 55,000 <small>one‑time</small></div>
+        <ul><li>Up to 12 pages</li><li>Custom design</li><li>Blog setup</li><li>Speed optimisation</li><li>Full on‑page SEO</li><li>Google Analytics &amp; Search Console</li><li>1 month free support</li><li>Delivery in 14 days</li></ul>
+        <a href="#contact" class="btn">Choose Business</a>
+      </div>
+      <div class="plan">
+        <h3>E‑commerce Store</h3><div class="for">Shopify or WooCommerce</div>
+        <div class="price">from PKR 90,000</div>
+        <ul><li>Complete store setup</li><li>Up to 50 products uploaded</li><li>Payment, COD &amp; delivery setup</li><li>Product &amp; collection page SEO</li><li>Store training video</li><li>2 months free support</li></ul>
+        <a href="#contact" class="btn btn-ghost">Choose E‑commerce</a>
+      </div>
+    </div>
+
+    <div class="plans" id="p-blog">
+      <div class="plan">
+        <h3>Single Article</h3><div class="for">Try my writing first</div>
+        <div class="price">PKR 2,000 <small>/ article</small></div>
+        <ul><li>Up to 1,000 words</li><li>Keyword research</li><li>SEO‑optimised headings &amp; meta</li><li>Plagiarism‑free</li><li>1 free revision</li></ul>
+        <a href="#contact" class="btn btn-ghost">Order article</a>
+      </div>
+      <div class="plan pop">
+        <span class="badge">Best value</span>
+        <h3>Monthly Blogging</h3><div class="for">Consistent content that builds traffic</div>
+        <div class="price">PKR 14,000 <small>/ month</small></div>
+        <ul><li>8 SEO articles per month</li><li>Monthly content calendar</li><li>Internal linking</li><li>Images &amp; formatting</li><li>Upload to WordPress or Shopify</li></ul>
+        <a href="#contact" class="btn">Choose Monthly</a>
+      </div>
+      <div class="plan">
+        <h3>Blog Setup + Growth</h3><div class="for">Start a blog the right way</div>
+        <div class="price">PKR 30,000 <small>one‑time</small></div>
+        <ul><li>Complete blog setup</li><li>10 SEO articles</li><li>Category &amp; SEO structure</li><li>Search Console setup</li><li>Monetisation guidance</li></ul>
+        <a href="#contact" class="btn btn-ghost">Choose Setup</a>
+      </div>
+    </div>
+    <p class="note">All prices are in PKR. International clients: USD pricing on request. Custom combos (website + SEO + blogging) get a discount.</p>
+  </div>
+</section>
+
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="tag">What I build</span><h2>Work I can do for you.</h2></div>
+      <p>Websites, stores and blogs, plus real SEO results from Google Search Console below.</p>
+    </div>
+    <div class="work">
+      <div class="wcard">
+        <div class="shot" style="background:#f4e3e6;padding:14px"><img src="theme-bakery.webp" alt="Bakery website design with cakes and macarons" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:10px;box-shadow:0 10px 26px -14px rgba(0,0,0,.35)"></div>
+        <div class="meta"><h3>Business Websites</h3><p>Bakery website design: soft, appetising look with clear "Order now" buttons.</p></div>
+      </div>
+      <div class="wcard">
+        <div class="shot" style="background:#f6dfe6;padding:14px"><img src="theme-skincare.webp" alt="Shopify theme design for a skincare brand" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:10px;box-shadow:0 10px 26px -14px rgba(0,0,0,.35)"></div>
+        <div class="meta"><h3>Shopify Stores</h3><p>Skincare Shopify theme: bestsellers, sale banner and reviews built to sell.</p></div>
+      </div>
+      <div class="wcard">
+        <div class="shot" style="background:#eef2f8;padding:14px"><img src="blog-traffic.webp" alt="Google Search Console for a blog: 37.1K clicks and 9.5 million impressions in 3 months" style="width:100%;height:100%;object-fit:cover;object-position:left top;border-radius:10px;box-shadow:0 10px 26px -14px rgba(0,0,0,.35)"></div>
+        <div class="meta"><h3>SEO Blogs</h3><p>A blog I grow with SEO content: <b style="color:var(--ink)">37.1K clicks</b> and <b style="color:var(--ink)">9.5M impressions</b> from Google in 3 months, ranking around position 7.</p></div>
+      </div>
+    </div>
+    <div class="res-h"><h3>Real SEO results</h3><span class="tag">Google Search Console</span></div>
+    <div class="results">
+      <div class="res">
+        <div class="img"><img src="seo-growth.webp" alt="Google Search Console chart showing daily clicks growing from 0 to about 90 between August and November 2026"></div>
+        <div class="meta">
+          <div class="big">0 → <span>90 clicks/day</span></div>
+          <p>Took a new website from almost zero search traffic to steady daily clicks from Google in about 10 weeks.</p>
+          <div class="kpis"><b>1,226 clicks</b><b>~10 weeks</b><b>Organic growth</b></div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="img"><img src="seo-24h.webp" alt="Google Search Console showing 1.78K clicks, 7.31K impressions, 24.3% CTR and average position 3.5 in 24 hours"></div>
+        <div class="meta">
+          <div class="big"><span>1.78K clicks</span> in 24 hours</div>
+          <p>Strong rankings with a high click‑through rate, so the site shows near the top of Google and people actually click.</p>
+          <div class="kpis"><b>7.31K impressions</b><b>24.3% CTR</b><b>Avg. position 3.5</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="head"><div><span class="tag">How I work</span><h2>From first audit to first page.</h2></div></div>
+    <div class="steps">
+      <div class="step"><h3>Audit</h3><p>I check your website, competitors and keywords for free.</p></div>
+      <div class="step"><h3>Plan</h3><p>You get a clear plan: what to build, fix and write.</p></div>
+      <div class="step"><h3>Build</h3><p>I develop, optimise and write, keeping you updated.</p></div>
+      <div class="step"><h3>Grow</h3><p>Monthly reports show your rankings, traffic and leads.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact" style="border-top:0;padding-top:40px">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <span class="tag" style="color:#8d8d8d">Let's work together</span>
+        <h2 style="margin-top:10px">Want a website that <span>ranks &amp; sells?</span></h2>
+        <p>Send me your website link with the word <b style="color:#fff">"AUDIT"</b> and I'll send you a free website check with the top things to fix.</p>
+      </div>
+      <div class="mailbox">
+        <div class="lbl">Email me</div>
+        <div class="em">Mariatufail62@gmail.com</div>
+        <div class="row">
+          <a class="btn btn-lime" href="mailto:Mariatufail62@gmail.com?subject=AUDIT%20-%20Website%20check">Send email</a>
+          <button class="btn btn-ghost" id="copy">Copy email</button>
+        </div>
+        <ul>
+          <li>✓ Reply within 24 hours</li>
+          <li>✓ Free website audit</li>
+          <li>✓ Pakistan &amp; international clients</li>
+        </ul>
+      </div>
+    </div>
+    <footer>
+      <span>© 2026 Maria Tufail · Web Developer, SEO &amp; Blogger</span>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+  </div>
+</section>
+
+<script>
+(function(){
+  const hero=document.querySelector('.hero'), me=document.getElementById('me'), irises=document.querySelectorAll('#me .iris'),
+        bubble=document.getElementById('bubble'), 
+        K=document.getElementById('ctxK'), H=document.getElementById('ctxH'),
+        P=document.getElementById('ctxP'), A=document.getElementById('ctxA');
+  const copy={
+    idle:{b:"Shh… coding something cool 💻",k:"Psst…",h:"Move your cursor around.",p:"Go left to meet me, stay in the middle to say hi, or head right to see my packages and work.",a:["#packages","Explore packages →"]},
+    left:{b:"Hey! 👋 Want to know about me?",k:"About me",h:"5+ years of building websites.",p:"Web developer, SEO specialist and blogger. I build it, rank it and write for it, all in one place.",a:["#about","Read my story →"]},
+    center:{b:"Oh hi, it's you! 😊",k:"Hello there",h:"Let's grow your brand online.",p:"Get a free website audit. I'll show you exactly what's stopping you from ranking on Google.",a:["#contact","Get free audit →"]},
+    right:{b:"My packages are this way →",k:"Packages",h:"SEO from PKR 15,000/month.",p:"Websites, SEO and blogging packages with clear pricing. Pick one or ask for a custom combo.",a:["#packages","See all packages →"]}
+  };
+  let state='idle', idleT, swapT;
+  function set(s){
+    if(s===state) return; state=s;
+    me.setAttribute('class','s-'+s); hero.dataset.zone=s; if(s==='idle') irises.forEach(i=>i.style.transform='translate(0,3px)');
+    const c=copy[s];
+    bubble.classList.add('swap'); clearTimeout(swapT);
+    swapT=setTimeout(()=>{bubble.textContent=c.b;bubble.classList.remove('swap')},180);
+    K.textContent=c.k;H.textContent=c.h;P.textContent=c.p;A.href=c.a[0];A.textContent=c.a[1];
+  }
+  function look(x,y){
+    if(state==='idle') return;
+    const r=me.getBoundingClientRect(), cx=r.left+r.width*.5, cy=r.top+r.height*.44;
+    const dx=Math.max(-3.5,Math.min(3.5,(x-cx)/55)), dy=Math.max(-2.5,Math.min(2.5,(y-cy)/80));
+    irises.forEach(i=>i.style.transform=`translate(${dx}px,${dy}px)`);
+  }
+  irises.forEach(i=>i.style.transform='translate(0,3px)');
+  let demo=null;
+  function move(e){
+    stopDemo();
+    const r=hero.getBoundingClientRect(), f=(e.clientX-r.left)/r.width;
+    set(f<.36?'left':f>.64?'right':'center'); look(e.clientX,e.clientY);
+    clearTimeout(idleT); idleT=setTimeout(()=>set('idle'),2600);
+  }
+  hero.addEventListener('pointermove',move);
+  hero.addEventListener('pointerdown',move);
+  hero.addEventListener('pointerleave',()=>{clearTimeout(idleT);idleT=setTimeout(()=>set('idle'),700)});
+  // blink
+  (function blink(){setTimeout(()=>{me.classList.add('blink');setTimeout(()=>{me.classList.remove('blink');blink()},130)},2500+Math.random()*2500)})();
+  // touch devices: gentle demo loop until the visitor taps
+  function stopDemo(){if(demo){clearInterval(demo);demo=null}}
+  if(window.matchMedia('(hover:none)').matches){
+    const seq=['left','center','right','idle'];let i=0;
+    demo=setInterval(()=>{set(seq[i%4]);i++},2800);
+  }
+  // tabs
+  document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+    document.querySelectorAll('.plans').forEach(p=>p.classList.toggle('on',p.id==='p-'+b.dataset.t));
+  }));
+  // copy email
+  const cb=document.getElementById('copy');
+  cb.addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText('Mariatufail62@gmail.com');cb.textContent='Copied ✓'}
+    catch(e){cb.textContent='Select & copy above'}
+    setTimeout(()=>cb.textContent='Copy email',2000);
+  });
+})();
+</script>
+</body>
+</html>
